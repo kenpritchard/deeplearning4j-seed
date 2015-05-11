@@ -1,0 +1,37 @@
+<div class="container">
+<div class="row">
+  <h1 class="text-center">Learn Text</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+  <h3 class="text-center">Input Text</h3>
+  <textarea ng-model="inputText" class="form-control" rows="10"></textarea>
+
+  <h3 class="text-center">Search Term</h3>
+  <textarea ng-model="searchTerm" class="form-control" rows="1"></textarea>
+
+  <div class="text-center pad-top-15">
+    <button ng-click="submit()">Submit</button>
+    <button ng-click="clear()">Clear</button>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="row">
+  <h3 class="text-center" ng-show="hasResults()">Results</h3>
+</div>
+<div class="row">
+  <div class="col-md-9 col-md-offset-3">
+  <ul class="list-unstyled offset3">
+    <li ng-repeat="result in results track by $index">
+      {{result}}
+    </li>
+  </ul>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
