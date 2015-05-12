@@ -4,11 +4,11 @@ A small Spring Boot app that contains everything you should need to start a new 
 ## Setup
 Clone the project, providing the name of the new directory, and remove the .git folder:
 
-`git clone --depth 1 --branch master https://github.com/kenpritchard/deeplearning4j.git new_directory && rm -rf new_directory/.git`
+`git clone --depth 1 --branch master https://github.com/kenpritchard/deeplearning4j-seed.git new_directory && rm -rf new_directory/.git`
 
 or
 
-`git clone --depth 1 --branch master git@github.com:kenpritchard/deeplearning4j.git new_directory && rm -rf new_directory/.git`
+`git clone --depth 1 --branch master git@github.com:kenpritchard/deeplearning4j-seed.git new_directory && rm -rf new_directory/.git`
 
 If you are cloning to start a new project, edit the pom to reflect your group and artifact ID's along with modifying the package structure to reflect your organization's standards.
 
