@@ -1,9 +1,18 @@
 package com.kenpritchard.seeds.services;
 
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 
+import org.deeplearning4j.bagofwords.vectorizer.BaseTextVectorizer;
 import org.deeplearning4j.bagofwords.vectorizer.TextVectorizer;
 import org.deeplearning4j.bagofwords.vectorizer.TfidfVectorizer;
+import org.deeplearning4j.bagofwords.vectorizer.Builder;
 import org.deeplearning4j.models.glove.CoOccurrences;
 import org.deeplearning4j.models.glove.Glove;
 import org.deeplearning4j.models.glove.GloveWeightLookupTable;
@@ -16,14 +25,16 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.nd4j.linalg.factory.Nd4j;
 import org.springframework.stereotype.Component;
 
+import com.kenpritchard.seeds.domain.GloveRequest;
+
 @Component
 public class GloveService {
-	Collection<String> getSimilarStrings(Collection<String> inputStrings, String targetWord) {
+	public Collection<String> getSimilarStrings(GloveRequest request) {
 		Collection<String> similar = null;
         Nd4j.ENFORCE_NUMERICAL_STABILITY = true;
         int layerSize = 300;
         final EndingPreProcessor preProcessor = new EndingPreProcessor();
-        SentenceIterator iter = new CollectionSentenceIterator(inputStrings);
+        SentenceIterator iter = new CollectionSentenceIterator(request.getInputStrings());
         InMemoryLookupCache cache = new InMemoryLookupCache();
         TokenizerFactory tokenizerFactory = new DefaultTokenizerFactory();
         TextVectorizer  textVectorizer = new TfidfVectorizer.Builder().cache(cache).iterate(iter).minWords(1).tokenize(tokenizerFactory).build();
@@ -43,7 +54,7 @@ public class GloveService {
 						                .windowSize(15).build();
         glove.fit();
 
-        similar = glove.wordsNearest(targetWord,20);
+        similar = glove.wordsNearest(request.getTargetWord(),20);
         return similar;
 		
 	}
